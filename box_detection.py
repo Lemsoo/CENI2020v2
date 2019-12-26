@@ -91,7 +91,6 @@ def box_extraction(cropped_dir_path, *img_for_box_extraction_path):
 
 
 
-box_extraction("./Cropped/", "41.jpg", "42.jpg", "43.jpg", "44.jpg", "45.jpg", "46.jpg", "47.jpg", "48.jpg", "49.jpg", "50.jpg")
 
 
 def detect_case(img):
@@ -109,5 +108,7 @@ def detect_case(img):
     else :
 
         return 1
-box_extraction("41.jpg", "./Cropped/")
+
+
+box_extraction("./Cropped/", "41.jpg", "42.jpg", "43.jpg", "44.jpg", "45.jpg", "46.jpg", "47.jpg", "48.jpg", "49.jpg", "50.jpg")
 
