@@ -93,22 +93,5 @@ def box_extraction(cropped_dir_path, *img_for_box_extraction_path):
 
 
 
-def detect_case(img):
-    img2 = cv2.imread(img)     
-# Displaying the image  
-    n=0 
-    for i in range(65,95):
-        for j in range(35,65):
-            if img2[i, j][0] >= 200 and img2[i, j][1] >= 200 and img2[i, j][2] >= 200  :
-                n=n+1
-                
-
-    if n>850:
-        return 0
-    else :
-
-        return 1
-
-
 box_extraction("./Cropped/", "41.jpg", "42.jpg", "43.jpg", "44.jpg", "45.jpg", "46.jpg", "47.jpg", "48.jpg", "49.jpg", "50.jpg")
 
