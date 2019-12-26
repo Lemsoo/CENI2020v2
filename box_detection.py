@@ -31,7 +31,7 @@ def sort_contours(cnts, method="left-to-right"):
     return (cnts, boundingBoxes)
 
 #prend comme @param un repertoire et plusieurs photos (le nombre selon le besoin pour extraire des donnee)
-def decoupages_des_box(cropped_dir_path, *img_for_box_extraction_path):
+def box_extraction(cropped_dir_path, *img_for_box_extraction_path):
     
     img_for_box_extraction_path = list(img_for_box_extraction_path)
     for i in range(len(img_for_box_extraction_path)):
@@ -91,7 +91,7 @@ def decoupages_des_box(cropped_dir_path, *img_for_box_extraction_path):
 
 
 
-decoupages_des_box("./Decoupees/", "41.jpg", "42.jpg", "43.jpg", "44.jpg", "45.jpg", "46.jpg", "47.jpg", "48.jpg", "49.jpg", "50.jpg")
+box_extraction("./Cropped/", "41.jpg", "42.jpg", "43.jpg", "44.jpg", "45.jpg", "46.jpg", "47.jpg", "48.jpg", "49.jpg", "50.jpg")
 
 
 def detect_case(img):
