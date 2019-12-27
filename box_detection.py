@@ -1,11 +1,5 @@
 import cv2
 import numpy as np
-import os
-
-import glob
-
-
-
 
 def sort_contours(cnts, method="left-to-right"):
     # initialize the reverse flag and sort index
@@ -32,7 +26,7 @@ def sort_contours(cnts, method="left-to-right"):
 
 #prend comme @param un repertoire et plusieurs photos (le nombre selon le besoin pour extraire des donnee)
 def box_extraction(cropped_dir_path, *img_for_box_extraction_path):
-    
+    idx = 0
     img_for_box_extraction_path = list(img_for_box_extraction_path)
     for i in range(len(img_for_box_extraction_path)):
 
@@ -73,7 +67,7 @@ def box_extraction(cropped_dir_path, *img_for_box_extraction_path):
         # Sort all the contours by top to bottom.
         (contours, boundingBoxes) = sort_contours(contours, method="top-to-bottom")
 
-	idx = 0
+
         for c in contours:
             # Returns the location and width,height for every contour
             x, y, w, h = cv2.boundingRect(c)
@@ -91,7 +85,4 @@ def box_extraction(cropped_dir_path, *img_for_box_extraction_path):
 
 
 
-
-
 box_extraction("./Cropped/", "41.jpg", "42.jpg", "43.jpg", "44.jpg", "45.jpg", "46.jpg", "47.jpg", "48.jpg", "49.jpg", "50.jpg")
-
