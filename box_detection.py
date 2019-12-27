@@ -78,11 +78,8 @@ def box_extraction(cropped_dir_path, *img_for_box_extraction_path):
                 new_img = img[y:y+h, x:x+w]
                 cv2.imwrite(cropped_dir_path+str(idx) + '.png', new_img)
 
-    # For Debugging
-    # Enable this line to see all contours.
-    # cv2.drawContours(img, contours, -1, (0, 0, 255), 3)
-    # cv2.imwrite("./Temp/img_contour.jpg", img)
 
+                
 
 
 box_extraction("./Cropped/", "41.jpg", "42.jpg", "43.jpg", "44.jpg", "45.jpg", "46.jpg", "47.jpg", "48.jpg", "49.jpg", "50.jpg")
