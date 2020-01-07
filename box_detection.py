@@ -27,9 +27,10 @@ def sort_contours(cnts, method="left-to-right"):
 #prend comme @param un repertoire et plusieurs photos (le nombre selon le besoin pour extraire des donnee)
 def box_extraction(cropped_dir_path, *img_for_box_extraction_path):
     idx = 0
+    idx2 = 0
     img_for_box_extraction_path = list(img_for_box_extraction_path)
     for i in range(len(img_for_box_extraction_path)):
-
+        idx2 += 1
         img = cv2.imread(img_for_box_extraction_path[i], 0)  # Read the image
         (thresh, img_bin) = cv2.threshold(img, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)  # Thresholding the image
 
@@ -48,7 +49,7 @@ def box_extraction(cropped_dir_path, *img_for_box_extraction_path):
 
         # Morphological operation to detect verticle lines from an image
         img_temp1 = cv2.erode(img_bin, verticle_kernel, iterations=2)
-        verticle_lines_img = cv2.dilate(img_temp1, verticle_kernel, iterations=7)
+        verticle_lines_img = cv2.dilate(img_temp1, verticle_kernel, iterations=3) #7
 
         # Morphological operation to detect horizontal lines from an image
         img_temp2 = cv2.erode(img_bin, hori_kernel, iterations=2)
@@ -76,10 +77,14 @@ def box_extraction(cropped_dir_path, *img_for_box_extraction_path):
             if (w > 80 and h > 20) and w > 3*h:
                 idx += 1
                 new_img = img[y:y+h, x:x+w]
-                cv2.imwrite(cropped_dir_path+str(idx) + '.png', new_img)
+                cv2.imwrite(cropped_dir_path + str(idx) + '.png', new_img)
 
+        # For Debugging
+        # Enable this line to see all contours.
+        # cv2.drawContours(img, contours, -1, (0, 0, 255), 3)
+        # cv2.imwrite("./Temp/img_contour"+str(idx2)+".jpg", img)
 
-                
 
 
 box_extraction("./Cropped/", "41.jpg", "42.jpg", "43.jpg", "44.jpg", "45.jpg", "46.jpg", "47.jpg", "48.jpg", "49.jpg", "50.jpg")
+
