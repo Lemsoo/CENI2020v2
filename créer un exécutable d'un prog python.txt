@@ -1,0 +1,5 @@
+Pour faire un exécutable à partir d'un programme python il suffit de télecharger "pyinstaller" par la commande "pip3 install pyinstaller", et puis tappez les commandes :
+
+- pyinstaller prog.py : pour créer un répertoire "prog" contient l'exécutable du programme sous forme de console.
+
+- pyinstaller --noconsole orog.py : pour créer un répertoir "pro" contient l'exécutable du programme sous forme d'interface.
