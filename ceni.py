@@ -1,19 +1,21 @@
 import os
+import sys
 import cv2
 import numpy as np
 import pytesseract as pyt
 import shutil
 from pdf2image import convert_from_path, convert_from_bytes
-
+#from window import Window
 
 idx = 0
 numError = 0
 class CENI:
+#(Window):
     global idx
     global numError
-    def convertTopdf(self, *pdf):
+    def convertTopdf(self, pdf):
 
-        images = convert_from_path(*pdf)
+        images = convert_from_path(pdf)
         i = 1
         for image in images:
         	image.save('./src_img/' + str(i) + '.jpg', 'JPEG')
@@ -28,9 +30,9 @@ class CENI:
 
             n=0
             try :
-                for i in range(65,95):
-                    for j in range(35,65):
-                        if img2[i, j][0] >= 200 and img2[i, j][1] >= 200 and img2[i, j][2] >= 200 :
+                for i in range(90,120):
+                    for j in range(70,100):
+                        if img2[i, j][0] == 255 and img2[i, j][1] == 255 and img2[i, j][2] == 255 :
                             n=n+1
             except IndexError:
                 numError+=1
@@ -40,33 +42,23 @@ class CENI:
 
             if n>850:
                 g = pyt.image_to_string(img2).split("\n")
-                """i = 0
-                while i < len(g):
-                    if g[i] == 10000:
-                        g.pop(i)
-                    else:
-                        i += 1
-"""
-                #print("Il n'a pas voté et son Numero a été ajouté au fichier texte listeNum.txt")
-                #f.write(self.detecteNNI(g)+ str(\n))
-                """l=[]
-                for ji in g:
-                    ji.split(" ")
-                    l.append(ji)"""
-                f.write(str(g) + "\n" + "\n")
-
+                f.write(self.detecteNNI(g) + "\n")
+                #f.write(str(g) + "\n")
 
     def detecteNNI(self,l):
-            j = '0123456789'
+            j = ' 0123456789'
             m = 0
             for i in l:
-                if len(i)==10:
+                if len(i) >= 10 and len(i) <= 14:
                     for s in i:
                         if s in j:
                             m+=1
                             if m==10:
                                 m=0
-                                return i
+                                if len(i) == 10:
+                                    return i
+                                else :
+                                    return i[-10:]
 
 
 
@@ -171,11 +163,12 @@ os.mkdir("src_img")
 os.mkdir("Cropped")
 
 A = CENI()
-f=open("nni.txt","a+")
+f=open("nni.txt","w+")
+#f=open("nni.txt","a+")
 a=os.listdir("src_img")
 
 
-A.convertTopdf("Ceni.pdf")
+A.convertTopdf(sys.argv[1])
 
 
 
@@ -188,7 +181,7 @@ for file in os.listdir("./Cropped/"):
         A.detect_case(f, "./Cropped/" + str(file))
 
 print (numError)
-
+f.close()
 shutil.rmtree("src_img")
 shutil.rmtree("Cropped")
 
